@@ -1,0 +1,16 @@
+# .gitignore
+runs/**/*.pt
+runs/**/*.pth
+runs/**/*.ckpt
+models/**/*.pt
+models/**/*.pth
+*.pt
+*.pth
+__pycache__/
+*.pyc
+*.pyo
+*.DS_Store
+data_raw/
+*.zip
+*.tar
+*.7z
