@@ -65,18 +65,27 @@ If you want to retrain, run your project’s training entrypoint per phase/model
 # Example commands (adapt to your train script/args):
 # ALL9 (9-class)
 python -m models.train --phase ALL9 --model mobilenetv3 --data_dir data_raw --epochs 50 --out runs/ALL9/mobilenetv3
+
 python -m models.train --phase ALL9 --model vit_resnet  --data_dir data_raw --epochs 50 --out runs/ALL9/vit_resnet
+
 python -m models.train --phase ALL9 --model swin_densenet --data_dir data_raw --epochs 50 --out runs/ALL9/swin_densenet
+
 python -m models.train --phase ALL9 --model efficientnet --data_dir data_raw --epochs 50 --out runs/ALL9/efficientnet
+
 python -m models.train --phase ALL9 --model vgg16 --data_dir data_raw --epochs 50 --out runs/ALL9/vgg16
+
 python -m models.train --phase ALL9 --model vgg19 --data_dir data_raw --epochs 50 --out runs/ALL9/vgg19
+
 # (cnn baseline likewise)
 
 # L1 (binary: Normal vs Disease)
+
 python -m models.train --phase L1 --model resnet50 --data_dir data_raw --epochs 30 --out runs/L1/resnet50
 
 # L2 (8-class diseases only)
+
 python -m models.train --phase L2 --model resnet50     --data_dir data_raw --epochs 40 --out runs/L2/resnet50
+
 python -m models.train --phase L2 --model densenet121  --data_dir data_raw --epochs 40 --out runs/L2/densenet121
 
 
@@ -84,11 +93,7 @@ Tip: Keep checkpoint filenames as runs/<PHASE>/<MODEL>/best.pt so the evaluator 
 
 📈 Reproducible Evaluation
 1) Run everything at once
-python -m eval_tools.run_all_evals \
-  --data_dir data_raw \
-  --phases ALL9 L1 L2 \
-  --models resnet50 densenet121 mobilenetv3 cnn vit_resnet swin_densenet efficientnet vgg16 vgg19
-
+python -m eval_tools.run_all_evals --data_dir data_raw --phases ALL9 L1 L2 --models resnet50 densenet121 mobilenetv3 cnn vit_resnet swin_densenet efficientnet vgg16 vgg19
 
 Outputs:
 
@@ -239,10 +244,7 @@ git push origin v2
 All the images shown above are already produced under runs/figures/.
 To regenerate them after retraining, simply re-run:
 
-python -m eval_tools.run_all_evals \
-  --data_dir data_raw \
-  --phases ALL9 L1 L2 \
-  --models resnet50 densenet121 mobilenetv3 cnn vit_resnet swin_densenet efficientnet vgg16 vgg19
+python -m eval_tools.run_all_evals --data_dir data_raw --phases ALL9 L1 L2 --models resnet50 densenet121 mobilenetv3 cnn vit_resnet swin_densenet efficientnet vgg16 vgg19
 
 📜 License
 
