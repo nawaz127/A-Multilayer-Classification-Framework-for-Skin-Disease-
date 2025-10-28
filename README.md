@@ -79,17 +79,20 @@ pip install streamlit==1.37.0
 6) Training
 L1 (Normal vs Abnormal)
 
+
 python train_multilayer.py --data_dir data_raw --phase L1 --model resnet50
 
 # checkpoints → runs/L1/resnet50/best.pt
 
 L2 (8-class abnormal)
+
 python train_multilayer.py --data_dir data_raw --phase L2 --model densenet121
 
 # checkpoints → runs/L2/densenet121/best.pt
 
 ALL-9 (single-stage baseline & comparisons)
 # pick any:
+
 python train_multilayer.py --data_dir data_raw --phase ALL9 --model mobilenetv3
 
 python train_multilayer.py --data_dir data_raw --phase ALL9 --model vit_resnet
@@ -105,7 +108,9 @@ python train_multilayer.py --data_dir data_raw --phase ALL9 --model vgg19
 python train_multilayer.py --data_dir data_raw --phase ALL9 --model cnn
 
 
-L3 (Subclass head) — optional
+L3 (Subclass head)
+
+
 python train_multilayer.py --data_dir data_raw --phase SUBCLASS --model densenet121
 
 # checkpoint → runs/SUBCLASS/subclass/best.pt
