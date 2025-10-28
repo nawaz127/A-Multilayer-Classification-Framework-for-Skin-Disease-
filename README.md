@@ -67,32 +67,47 @@ Inference path in app.py: L1 → L2 → if {Eczema/Fungal/Pox} → L3.
 
 4) Environment
 conda create -n torch_gpu python=3.10 -y
+
 conda activate torch_gpu
+
 pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
+
 pip install timm==0.9.16 scikit-learn==1.4.2 matplotlib==3.8.4 seaborn==0.13.2 pandas==2.2.2
+
 pip install streamlit==1.37.0
 
-5) Training
+6) Training
 L1 (Normal vs Abnormal)
+
 python train_multilayer.py --data_dir data_raw --phase L1 --model resnet50
+
 # checkpoints → runs/L1/resnet50/best.pt
 
 L2 (8-class abnormal)
 python train_multilayer.py --data_dir data_raw --phase L2 --model densenet121
+
 # checkpoints → runs/L2/densenet121/best.pt
 
 ALL-9 (single-stage baseline & comparisons)
 # pick any:
 python train_multilayer.py --data_dir data_raw --phase ALL9 --model mobilenetv3
+
 python train_multilayer.py --data_dir data_raw --phase ALL9 --model vit_resnet
+
 python train_multilayer.py --data_dir data_raw --phase ALL9 --model swin_densenet
+
 python train_multilayer.py --data_dir data_raw --phase ALL9 --model efficientnet
+
 python train_multilayer.py --data_dir data_raw --phase ALL9 --model vgg16
+
 python train_multilayer.py --data_dir data_raw --phase ALL9 --model vgg19
+
 python train_multilayer.py --data_dir data_raw --phase ALL9 --model cnn
+
 
 L3 (Subclass head) — optional
 python train_multilayer.py --data_dir data_raw --phase SUBCLASS --model densenet121
+
 # checkpoint → runs/SUBCLASS/subclass/best.pt
 # NOTE: align subclass labels in datasets.py (Eczema/Fungal/Pox subtypes).
 
@@ -100,21 +115,12 @@ python train_multilayer.py --data_dir data_raw --phase SUBCLASS --model densenet
 
 Run all evaluations and comparisons in one go:
 
-python -m eval_tools.run_all_evals \
-  --data_dir data_raw \
-  --phases ALL9 L1 L2 \
-  --models resnet50 densenet121 mobilenetv3 cnn vit_resnet swin_densenet efficientnet vgg16 vgg19
+python -m eval_tools.run_all_evals --data_dir data_raw --phases ALL9 L1 L2 --models resnet50 densenet121 mobilenetv3 cnn vit_resnet swin_densenet efficientnet vgg16 vgg19
 # outputs:
 #   runs/figures/*.png     (confusion, ROC-OVR, PR-OVR, reliability)
 #   runs/tables/*.csv      (predictions, confusion, leaderboard, comparison_all_models.csv)
 
 
-McNemar between two ALL-9 models:
-
-python -m eval_tools.stats_mcnemar \
-  --pred1 runs/tables/pred_ALL9_vit_resnet.csv \
-  --pred2 runs/tables/pred_ALL9_swin_densenet.csv \
-  --name1 vit_resnet --name2 swin_densenet
 
 7) Streamlit Inference (with subclass)
 
